@@ -64,8 +64,8 @@ function POS() {
   return (
     <div className="pos">
       <section>
-        <div className="chips">{locs.map((l) => (
-          <button key={l.id} className={`chip ${loc?.id === l.id ? 'on' : ''} ${busyLocs.includes(l.id) ? 'busy' : ''}`} onClick={() => setLoc(l)}>{l.label}</button>))}</div>
+        <div className="tiles">{locs.map((l) => (
+          <button key={l.id} className={`tile ${loc?.id === l.id ? 'on' : ''} ${busyLocs.includes(l.id) ? 'busy' : ''}`} onClick={() => setLoc(l)}>{l.label}</button>))}</div>
         <div className="chips sub">
           <button className={`chip ${!cat ? 'on' : ''}`} onClick={() => setCat(0)}>All</button>
           {cats.map((c) => <button key={c.id} className={`chip ${cat === c.id ? 'on' : ''}`} onClick={() => setCat(c.id)}>{c.name}</button>)}
