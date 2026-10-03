@@ -24,7 +24,7 @@ function Dash() {
     <>
       <div className="bar-top"><h1>Dashboard</h1>
         <div className="chips">{[[1, 'Today'], [7, '7 days'], [30, '30 days']].map(([d, l]) => (<button key={d} className={`chip ${days === d ? 'on' : ''}`} onClick={() => setDays(d)}>{l}</button>))}</div></div>
-      <div className="stats">
+      <div className="strip">
         <div className="card"><span className="mu">Sales</span><div className="big">{inr(sum)}</div></div>
         <div className="card"><span className="mu">Orders</span><div className="big">{orders}</div></div>
         <div className="card"><span className="mu">Avg order</span><div className="big">{inr(orders ? sum / orders : 0)}</div></div>
