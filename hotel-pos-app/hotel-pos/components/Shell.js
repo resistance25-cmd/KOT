@@ -16,22 +16,16 @@ export default function Shell({ children }) {
     });
   }, [router]);
   if (!ok) return <div className="boot">Loading…</div>;
-  const canSee = ['admin', 'manager', 'cashier'].includes(role);
+  const cash = ['admin', 'manager', 'cashier'].includes(role), mgr = ['admin', 'manager'].includes(role);
+  const links = [['/', 'Orders', true], ['/kitchen', 'Kitchen', true], ['/rooms', 'Rooms', cash], ['/dashboard', 'Dashboard', cash], ['/menu', 'Menu', mgr], ['/inventory', 'Inventory', mgr]];
   return (
-    <>
-      <header className="top">
-        <div className="brand">Hotel POS</div>
-        <nav>
-          <Link className={path === '/' ? 'on' : ''} href="/">Orders</Link>
-          <Link className={path === '/kitchen' ? 'on' : ''} href="/kitchen">Kitchen</Link>
-          {canSee && <Link className={path === '/dashboard' ? 'on' : ''} href="/dashboard">Dashboard</Link>}
-          {['admin', 'manager'].includes(role) && <Link className={path === '/menu' ? 'on' : ''} href="/menu">Menu</Link>}
-          {canSee && <Link className={path === '/rooms' ? 'on' : ''} href="/rooms">Rooms</Link>}
-          {['admin', 'manager'].includes(role) && <Link className={path === '/inventory' ? 'on' : ''} href="/inventory">Inventory</Link>}
-        </nav>
-        <button className="ghost" onClick={() => sb.auth.signOut().then(() => router.replace('/login'))}>Sign out</button>
-      </header>
+    <div className="shell">
+      <aside className="side">
+        <div className="brand">{process.env.NEXT_PUBLIC_HOTEL_NAME || 'Hotel POS'}<small>Restaurant and rooms</small></div>
+        <nav>{links.filter((l) => l[2]).map(([h, t]) => <Link key={h} href={h} className={path === h ? 'on' : ''}>{t}</Link>)}</nav>
+        <button className="out" onClick={() => sb.auth.signOut().then(() => router.replace('/login'))}>Sign out</button>
+      </aside>
       <main className="wrap">{children}</main>
-    </>
+    </div>
   );
 }
